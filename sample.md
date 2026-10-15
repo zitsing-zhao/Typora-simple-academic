@@ -6,6 +6,10 @@ A paragraph with **bold**, *italic*, ***both***, ~~strikethrough~~, ==highlight=
 
 Second paragraph to check spacing between paragraphs. The quick brown fox jumps over the lazy dog.
 
+A longer paragraph follows to judge the measure. Most of a paper is running text like this, so the line length, the leading and the colour of the type matter more than any ornament: a reader should be able to follow a line to its end and find the start of the next one without effort, for page after page.
+
+中文段落用于检查宋体与西文衬线字体的搭配。学术写作中，正文通常采用首行缩进而不加段间距，标题编号悬挂于版心之外，使所有文字共享同一条左边线。This sentence mixes in Latin text and figures such as 2026 and 3.14.
+
 ### Heading 3
 
 #### Heading 4

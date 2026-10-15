@@ -1,0 +1,110 @@
+<span id="theme-sample-document"></span>
+= Theme Sample Document =
+
+A paragraph with '''bold''', ''italic'', '''''both''''', <s>strikethrough</s>, <mark>highlight</mark>, <code>inline code</code>, a [https://typora.io link], <kbd>Ctrl</kbd>+<kbd>S</kbd>, and a footnote<ref>This is the footnote text.</ref>.
+
+<span id="heading-2"></span>
+== Heading 2 ==
+
+Second paragraph to check spacing between paragraphs. The quick brown fox jumps over the lazy dog.
+
+A longer paragraph follows to judge the measure. Most of a paper is running text like this, so the line length, the leading and the colour of the type matter more than any ornament: a reader should be able to follow a line to its end and find the start of the next one without effort, for page after page.
+
+中文段落用于检查宋体与西文衬线字体的搭配。学术写作中，正文通常采用首行缩进而不加段间距，标题编号悬挂于版心之外，使所有文字共享同一条左边线。This sentence mixes in Latin text and figures such as 2026 and 3.14.
+
+<span id="heading-3"></span>
+=== Heading 3 ===
+
+<span id="heading-4"></span>
+==== Heading 4 ====
+
+<span id="heading-5"></span>
+===== Heading 5 =====
+
+<span id="heading-6"></span>
+====== Heading 6 ======
+
+<span id="lists"></span>
+== Lists ==
+
+* Unordered item
+* Another item
+** Nested item
+** Nested item
+* Last item
+
+# Ordered item
+# Second item
+## Nested ordered
+# Third item
+
+* ☐ Completed task
+* ☐ Open task
+
+<span id="blockquote"></span>
+== Blockquote ==
+
+<blockquote>This is a blockquote. It can span multiple lines and contain '''formatting'''.
+
+A second paragraph inside the quote.
+</blockquote>
+<div class="note alert">
+
+'''Note'''<br />
+GitHub-style alert (Typora 1.8+).
+
+
+</div>
+<span id="code"></span>
+== Code ==
+
+<syntaxhighlight lang="javascript">// Comment
+function greet(name) {
+  const msg = `Hello, ${name}!`;
+  return msg.length > 10 ? msg : 42;
+}</syntaxhighlight>
+<span id="figure"></span>
+== Figure ==
+
+[[File:D:\OneDrive\typora_theme_building\assets\sample.svg|thumb|none]]
+
+''Quarterly results, shown as a bar chart. This longer caption wraps onto several lines to show how justified caption text lines up with both edges of the figure.''
+
+<span id="table"></span>
+== Table ==
+
+''Sample variables and their types.''
+
+{| class="wikitable"
+|-
+! Name
+! Type
+! Description
+|-
+| alpha
+| string
+| First row
+|-
+| beta
+| number
+| Second row
+|-
+| gamma
+| bool
+| Third row
+|}
+
+<span id="math"></span>
+== Math ==
+
+[[File:D:\OneDrive\typora_theme_building\assets\sample.svg|thumb|none]]
+
+''This is a figure.''
+
+Inline math <math display="inline">E = mc^2</math> and a block:
+
+<math display="block">\int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}</math>
+
+-----
+
+<references />

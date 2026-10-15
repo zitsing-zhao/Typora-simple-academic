@@ -13,6 +13,30 @@ A clean, paper-like theme for [Typora](https://typora.io) built for academic wri
 - **Compact lists**: tighter spacing inside lists than between paragraphs.
 - Print / PDF export friendly.
 
+## Simple Academic v2
+
+`simple-academic-v2.css` is a second version that keeps the same numbered headings, captions and three-line tables. It sets the document more like a printed paper:
+
+- **Sitka**, Windows' serif with optical sizes (Text for body, Heading for headings, Display for the title). Chinese text uses **Noto Serif SC**, so both scripts are serif. macOS falls back to Charter or Iowan Old Style, with Songti SC for Chinese.
+- **A book-width measure** (680px, about 70 characters) at 17px.
+- **Section numbers hung in the left margin**, so every heading starts on the same left edge as the text. In narrow windows and in print/PDF export they sit inline.
+- **One rubric red, used only for references**: section numbers, caption labels, links and footnote marks. Running text stays black.
+- **No drawn lines except the table rules.** Code blocks and alerts sit on a light grey background. Block quotes are inset from both margins. `---` becomes three spaced asterisks.
+- With **Indent first line** on, paragraphs are separated by the indent alone, with no extra space between them.
+
+![Simple Academic v2 preview](screenshots/preview-v2.png)
+
+Install it the same way as below with `simple-academic-v2.css`; it appears as **Simple Academic V2**. Preview it with `preview-v2.html`.
+
+**PDF export.** The theme sets its own page layout, so it works with Typora's default export settings. It prints a 150 mm text block at 11pt (`--print-width`, `--print-size`), centred on the page with the section numbers in the margin. Figures and tables stay with their captions. The theme also sets the running head and page number, left-aligned with the text block, through `--pdf-header` and `--pdf-footer`. Typora's own header and footer are always centred, so leave those fields in **Preferences → Export → PDF** empty. To use your own header and footer without editing the theme, put them in a `simple-academic-v2.user.css` file next to the theme. Typora loads that file after the theme:
+
+```css
+:root {
+  --pdf-header: "Your Name";
+  --pdf-footer: "No. " counter(page) " / " counter(pages);
+}
+```
+
 ## Installation
 
 1. Download [`simple-academic.css`](simple-academic.css).

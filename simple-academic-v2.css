@@ -1,0 +1,519 @@
+/* Simple Academic v2 — a Typora theme
+ * Set like a printed paper: one serif family with optical sizes, a book-width measure,
+ * section numbers hung in the margin, and a single rubric red reserved for the
+ * reference apparatus (section numbers, caption labels, links, footnote marks).
+ * Edit the variables below first; most adjustments only need these.
+ */
+
+:root {
+  /* palette: paper, ink, one rubric accent, one tone step */
+  --bg-color: #ffffff;
+  --text-color: #1c1c1c;             /* running text in full ink */
+  --heading-color: #111111;
+  --muted-color: #6b6a66;            /* secondary notes only */
+  --accent-color: #a3241f;           /* rubric red: the apparatus */
+  --field-color: #f3f3f0;            /* code, alerts, kbd: a tone step, never a line */
+  --mark-bg: #f6e7a0;
+  --table-rule-color: #1c1c1c;
+  --table-rule-thick: 1.5px;         /* top & bottom rules */
+  --table-rule-thin: 0.75px;         /* rule under the header */
+
+  /* captions */
+  --figure-label: "Figure";
+  --table-label: "Table";
+  --captioned-width: 80%;            /* captioned figures, tables and their captions share this width */
+  --caption-gap: 0.4rem;             /* space between caption and its figure/table */
+
+  /* typography: Sitka's optical sizes on Windows, Noto Serif SC for Chinese */
+  --text-font: "Sitka Text", Charter, "Iowan Old Style", "Palatino Linotype", Palatino,
+               "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  --heading-font: "Sitka Heading", Charter, "Iowan Old Style", "Palatino Linotype", Palatino,
+               "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  --title-font: "Sitka Display", var(--heading-font);
+  --monospace: "Cascadia Code", "JetBrains Mono", Consolas, "Noto Sans SC", "Microsoft YaHei", monospace;  /* code only; taste-skill-ignore */
+  --base-size: 17px;                 /* 1rem; every size below scales from it */
+  --small-size: 0.88rem;             /* captions, tables, footnotes: 15px */
+  --line-height: 1.7;                /* generous enough for mixed Chinese and Latin */
+  --list-line-height: 1.6;
+  --list-item-gap: 0.2em;
+  --text-width: 680px;               /* the measure: about 70 Latin characters */
+  --gutter: 80px;                    /* side margin; section numbers hang in it */
+  --hang-gap: 0.75em;                /* between a hung number and its heading */
+  --block-gap: 1em;                  /* above and below lists, code, tables, quotes */
+  --print-size: 11pt;                /* body size in PDF export and print */
+  --print-width: 150mm;              /* text block in PDF: about 75 characters at 11pt */
+  --paper-width: 210mm;              /* A4; 215.9mm for Letter. Lines the running head up with the text */
+  --pdf-header: "";                  /* running head, top left of every PDF page, e.g. "Ziqing Zhao" */
+  --pdf-footer: counter(page) "\2002/\2002" counter(pages);   /* bottom left; "" hides it */
+
+  /* Typora UI variables (sidebar, menus, etc.) */
+  --side-bar-bg-color: #f5f5f2;
+  --control-text-color: #555451;
+  --select-text-bg-color: rgba(163, 36, 31, 0.16);
+  --item-hover-bg-color: #ecece8;
+  --active-file-bg-color: #e6e6e1;
+  --active-file-border-color: var(--accent-color);
+  --window-border: none;
+}
+
+/* ---------- base ---------- */
+
+html {
+  font-size: var(--base-size);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--text-font);
+  color: var(--text-color);
+  background: var(--bg-color);
+  font-size: 1rem;
+  line-height: var(--line-height);
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+}
+
+#write {
+  max-width: calc(var(--text-width) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 56px var(--gutter) 120px;
+}
+
+#write > *:first-child { margin-top: 0; }
+
+p, ul, ol, blockquote, table, pre, .md-fences, figure {
+  margin: var(--block-gap) 0;
+}
+p { text-wrap: pretty; }
+
+/* With Typora's "indent first line" on, paragraphs are separated by the indent alone,
+   as in a printed book; other blocks keep their own space above and below. */
+#write.first-line-indent > p { margin-top: 0; margin-bottom: 0; }
+#write.first-line-indent > :is(ul, ol, blockquote, pre, .md-fences, figure, table, .md-math-block) + p {
+  margin-top: var(--block-gap);
+}
+
+a { color: var(--accent-color); text-decoration: none; }
+a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.18em;
+}
+
+::selection { background: var(--select-text-bg-color); }
+
+/* ---------- headings ---------- */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+  color: var(--heading-color);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  hyphens: none;
+  position: relative;
+  margin: 2.2em 0 0.7em;
+}
+
+/* the title: the page's one centred moment */
+#write h1 {
+  font-family: var(--title-font);
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-align: center;
+  text-wrap: balance;
+  margin: 0.4em auto 1.4em;
+  max-width: 22em;
+}
+
+h2 { font-size: 1.45rem; letter-spacing: -0.01em; }
+h3 { font-size: 1.15rem; }
+h4 { font-size: 1rem; margin: 1.8em 0 0.5em; }
+h5 { font-size: 1rem; font-style: italic; margin: 1.6em 0 0.4em; }
+h6 { font-size: 1rem; font-weight: 400; font-style: italic; margin: 1.6em 0 0.4em; }
+
+/* heading numbers: h2 = 1, h3 = 1.1, ... h6 = 1.1.1.1.1; each h1 restarts */
+#write { counter-reset: h2 figure table; }
+#write h1 { counter-reset: h2; }
+#write h2 { counter-reset: h3 figure table; }   /* captions number per h2: Figure 1.1, 1.2, ... */
+#write h3 { counter-reset: h4; }
+#write h4 { counter-reset: h5; }
+#write h5 { counter-reset: h6; }
+
+#write h2 { counter-increment: h2; }
+#write h3 { counter-increment: h3; }
+#write h4 { counter-increment: h4; }
+#write h5 { counter-increment: h5; }
+#write h6 { counter-increment: h6; }
+
+#write h2::before { content: counter(h2); }
+#write h3::before { content: counter(h2) "." counter(h3); }
+#write h4::before { content: counter(h2) "." counter(h3) "." counter(h4); }
+#write h5::before { content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5); }
+#write h6::before { content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6); }
+
+/* numbers hang in the left margin, so every heading starts on the text's own left edge */
+#write :is(h2, h3, h4, h5, h6)::before {
+  position: absolute;
+  right: 100%;
+  padding-right: var(--hang-gap);
+  color: var(--accent-color);
+  font-style: normal;
+  font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+
+/* narrow windows: no margin to hang into, so numbers sit inline */
+@media screen and (max-width: 700px) {
+  #write { padding-left: 24px; padding-right: 24px; }
+  #write :is(h2, h3, h4, h5, h6)::before {
+    position: static;
+    padding-right: 0;
+    margin-right: var(--hang-gap);
+  }
+}
+
+/* ---------- inline ---------- */
+
+strong { font-weight: 700; color: var(--heading-color); }
+em { font-style: italic; }
+
+code, tt, kbd, .md-fences, pre { letter-spacing: 0; }
+
+code, tt {
+  font-family: var(--monospace);
+  font-size: 0.84em;
+  background: var(--field-color);
+  color: var(--text-color);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+mark {
+  background: var(--mark-bg);
+  color: inherit;
+  padding: 0 0.1em;
+}
+
+#write kbd {
+  font-family: var(--monospace);
+  font-size: 0.8em;
+  padding: 0.12em 0.45em;
+  color: var(--text-color);
+  background: var(--field-color);
+  border: none;
+  border-radius: 2px;
+  box-shadow: none;                /* removes base.css kbd shadow; taste-skill-ignore */
+  vertical-align: baseline;
+}
+
+del { color: var(--muted-color); }
+
+/* footnote marks: a superscript figure in the accent, no pill */
+#write sup.md-footnote {
+  background: none;
+  padding: 0 0.1em;
+  border-radius: 0;
+  color: var(--accent-color);
+  font-size: 0.72em;
+  font-weight: 600;
+}
+#write sup.md-footnote a { color: inherit; }
+
+/* a thematic break is three spaced asterisks, not a rule */
+hr {
+  height: auto;
+  border: none;
+  background: none;
+  margin: 2.4em 0;
+  text-align: center;
+  overflow: visible;
+}
+hr::before {
+  content: "*\2003*\2003*";
+  color: var(--muted-color);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* ---------- lists ---------- */
+
+ul, ol { padding-left: 1.7em; line-height: var(--list-line-height); }
+li { margin: var(--list-item-gap) 0; }
+li > p { margin: 0; }
+li > ul, li > ol { margin: var(--list-item-gap) 0; }
+li::marker { color: var(--muted-color); font-variant-numeric: lining-nums; }
+
+/* with "indent first line" on, Typora shifts each li by 2em; drop the list padding
+   so item text lines up with a paragraph's first-line indent */
+#write.first-line-indent :is(ul, ol) { padding-left: 0; }
+#write.first-line-indent li > p { margin: 0; }
+
+.task-list-item, .md-task-list-item { list-style: none; position: relative; }
+#write .task-list-item input, #write .md-task-list-item > input {
+  position: absolute;
+  left: -1.45em;
+  top: 0.38em;
+  margin: 0;
+  accent-color: var(--accent-color);
+}
+
+/* ---------- blockquote & alerts ---------- */
+
+/* a block quotation, as in print: set in from both margins, nothing drawn around it */
+blockquote {
+  margin-left: 2em;
+  margin-right: 2em;
+  padding: 0;
+  border: none;
+  color: var(--text-color);
+}
+blockquote > p { margin: 0.5em 0; }
+#write.first-line-indent blockquote > p { text-indent: 0; }
+
+/* alerts are notes beside the argument: a tone-step field, the kind named in its colour */
+#write .md-alert {
+  margin: var(--block-gap) 0;
+  padding: 0.75em 1.15em;
+  background: var(--field-color);
+  border: none;
+}
+#write .md-alert > p { margin: 0.25em 0; text-indent: 0; }
+#write .md-alert-text { font-size: 1rem; font-weight: 600; }
+#write .md-alert-text svg { display: none; }
+.md-alert-text-note      { color: #2a5a8c; }
+.md-alert-text-tip       { color: #2f6e46; }
+.md-alert-text-important { color: #6a4a8a; }
+.md-alert-text-warning   { color: #8a5a10; }
+.md-alert-text-caution   { color: var(--accent-color); }
+
+/* ---------- code blocks ---------- */
+
+.md-fences, pre {
+  font-family: var(--monospace);
+  font-size: 0.82em;
+  line-height: 1.6;
+  background: var(--field-color);
+  border: none;
+  border-radius: 0;
+  padding: 0.9em 1.15em;
+}
+#write .md-fences { text-indent: 0; }
+
+.md-fences .CodeMirror, .md-fences .CodeMirror-lines { padding: 0; }
+.CodeMirror { font-family: var(--monospace); }
+#write .CodeMirror-gutters { background: var(--field-color); border-right: none; }
+.CodeMirror-linenumber { color: #a8a7a2; }
+
+/* a quiet scheme: structure in ink, literals in two muted colours, comments recede */
+.cm-s-inner { color: var(--text-color); }
+.cm-s-inner .cm-keyword  { color: #1c1c1c; font-weight: 700; }
+.cm-s-inner .cm-def      { color: #2a5a8c; }
+.cm-s-inner .cm-variable-2, .cm-s-inner .cm-variable-3 { color: #1c1c1c; }
+.cm-s-inner .cm-string, .cm-s-inner .cm-string-2 { color: #2f6e46; }
+.cm-s-inner .cm-number, .cm-s-inner .cm-atom { color: #a3241f; }
+.cm-s-inner .cm-comment  { color: #8a8984; font-style: italic; }
+.cm-s-inner .cm-property { color: #2a5a8c; }
+.cm-s-inner .cm-operator { color: #55544f; }
+.cm-s-inner .cm-tag      { color: #2a5a8c; }
+.cm-s-inner .cm-attribute { color: #8a5a10; }
+.cm-s-inner .cm-builtin  { color: #6a4a8a; }
+.cm-s-inner .cm-meta     { color: #6b6a66; }
+.cm-s-inner .CodeMirror-cursor { border-left-color: var(--accent-color); }
+
+/* ---------- tables (three-line style) ---------- */
+
+table {
+  border-collapse: collapse;
+  width: auto;                       /* fit content, centered */
+  font-size: var(--small-size);
+  line-height: 1.5;
+  font-variant-numeric: lining-nums tabular-nums;
+  border-top: var(--table-rule-thick) solid var(--table-rule-color);
+  border-bottom: var(--table-rule-thick) solid var(--table-rule-color);
+}
+/* Typora's base.css sets `figure>table{margin:0}`; out-specify it to keep tables centered */
+#write figure > table, #write table {
+  margin-left: auto;
+  margin-right: auto;
+}
+table th, table td {
+  border: none;
+  padding: 0.32em 1em;
+}
+table thead th {
+  font-weight: 600;
+  text-align: left;
+  padding-top: 0.45em;
+  border-bottom: var(--table-rule-thin) solid var(--table-rule-color);
+}
+table tbody tr:first-child td { padding-top: 0.5em; }
+table tbody tr:last-child td { padding-bottom: 0.5em; }
+
+/* ---------- images, math, toc ---------- */
+
+img { max-width: 100%; border-radius: 0; }
+
+/* image-only paragraphs are figures: centered; no bottom margin so a caption can sit close */
+#write p:has(> .md-image:only-child, > img:only-child) {
+  text-align: center;
+  margin-top: calc(var(--block-gap) * 1.4);
+  margin-bottom: 0;
+}
+#write p > .md-image:only-child { vertical-align: top; }
+/* an uncaptioned figure still needs room below it */
+#write p:has(> .md-image:only-child, > img:only-child):not(:has(+ p > [md-inline="em"]:only-child, + p > em:only-child)) {
+  margin-bottom: calc(var(--block-gap) * 1.4);
+}
+
+/* ---------- captions ----------
+ * A paragraph written entirely in italics becomes a caption when it is
+ *   - directly after an image-only paragraph  -> "Figure N.n" (below the figure)
+ *   - directly before a table                 -> "Table N.n"  (above the table)
+ * Editor DOM wraps italics as span[md-inline="em"]; exported HTML uses a bare <em>.
+ */
+
+#write p:has(> .md-image:only-child, > img:only-child)
+  + p:has(> [md-inline="em"]:only-child, > em:only-child),
+#write p:has(> [md-inline="em"]:only-child, > em:only-child):has(+ figure, + table) {
+  /* same width as the captioned figure/table, centered */
+  width: var(--captioned-width);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  text-indent: 0;                    /* ignore Typora's "indent first line" preference */
+  font-size: var(--small-size);
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+#write p:has(> .md-image:only-child, > img:only-child)
+  + p:has(> [md-inline="em"]:only-child, > em:only-child) {
+  counter-increment: figure;
+  margin-top: var(--caption-gap);
+  margin-bottom: calc(var(--block-gap) * 1.4);
+}
+#write p:has(> .md-image:only-child, > img:only-child)
+  + p:has(> [md-inline="em"]:only-child, > em:only-child)::before {
+  content: var(--figure-label) "\00a0" counter(h2) "." counter(figure) "\2002";
+}
+
+#write p:has(> [md-inline="em"]:only-child, > em:only-child):has(+ figure, + table) {
+  counter-increment: table;
+  margin-top: calc(var(--block-gap) * 1.4);
+  margin-bottom: var(--caption-gap);
+}
+#write p:has(> [md-inline="em"]:only-child, > em:only-child):has(+ figure, + table)::before {
+  content: var(--table-label) "\00a0" counter(h2) "." counter(table) "\2002";
+}
+
+/* caption labels belong to the apparatus */
+#write p:has(> .md-image:only-child, > img:only-child)
+  + p:has(> [md-inline="em"]:only-child, > em:only-child)::before,
+#write p:has(> [md-inline="em"]:only-child, > em:only-child):has(+ figure, + table)::before {
+  color: var(--accent-color);
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+}
+
+#write p:has(> [md-inline="em"]:only-child, > em:only-child) + figure,
+#write p:has(> [md-inline="em"]:only-child, > em:only-child) + table {
+  margin-top: var(--caption-gap);
+  margin-bottom: calc(var(--block-gap) * 1.4);
+}
+
+/* captioned tables and figures take the caption's width, so both edges line up */
+#write p:has(> [md-inline="em"]:only-child, > em:only-child) + figure > table,
+#write p:has(> [md-inline="em"]:only-child, > em:only-child) + table {
+  width: var(--captioned-width);
+}
+#write p:has(> .md-image:only-child, > img:only-child):has(+ p > [md-inline="em"]:only-child, + p > em:only-child) img {
+  width: var(--captioned-width);
+}
+
+/* caption text upright; the italics are only the marker */
+#write p:has(> .md-image:only-child, > img:only-child)
+  + p:has(> [md-inline="em"]:only-child, > em:only-child) em,
+#write p:has(> [md-inline="em"]:only-child, > em:only-child):has(+ figure, + table) em {
+  font-style: normal;
+}
+
+.md-math-block, .mathjax-block { margin: calc(var(--block-gap) * 1.2) 0; text-indent: 0; }
+
+.md-toc { font-size: 1rem; margin: var(--block-gap) 0; }
+.md-toc-item { color: var(--text-color); }
+.md-toc-item a { color: inherit; }
+.md-toc-h1 .md-toc-inner { font-weight: 600; }
+
+/* ---------- footnotes ---------- */
+
+#write .footnotes-area {
+  color: var(--text-color);
+  margin-top: 0;
+}
+/* exports open the footnote area with their own <hr>; drop it when the text already ends with one */
+#write hr + .footnotes-area > hr:first-child { display: none; }
+#write .footnote-line {
+  font-size: var(--small-size);
+  line-height: 1.5;
+  margin-top: 0.4em;
+}
+#write .footnote-line sup,
+#write .footnotes-area .md-fn-count { color: var(--accent-color); font-weight: 600; }
+.footnotes { opacity: 1; font-size: var(--small-size); }
+
+/* ---------- Typora UI ---------- */
+
+#typora-sidebar { font-family: var(--text-font); }
+.md-diagram-panel { margin-top: 0.5em; }
+
+/* ---------- print / PDF export ---------- */
+
+/* The theme sets the measure itself: a text block of --print-width centred on the page,
+   whatever Typora's margin settings are (its default adds only 30px at the sides).
+   The space left on either side holds the hung section numbers. */
+/* Running head and page number, set flush left on the text block's edge. Typora centres its
+   own header/footer and allows no other alignment, so leave those fields empty in
+   Preferences > Export > PDF and set --pdf-header / --pdf-footer instead (best in
+   simple-academic-v2.user.css next to the theme, which Typora loads after it). */
+@page {
+  @top-left {
+    content: var(--pdf-header);
+    padding-left: calc((var(--paper-width) - var(--print-width)) / 2);
+    font-family: var(--text-font);
+    font-size: 9pt;
+    color: var(--muted-color);
+  }
+  @bottom-left {
+    content: var(--pdf-footer);
+    padding-left: calc((var(--paper-width) - var(--print-width)) / 2);
+    font-family: var(--text-font);
+    font-size: 9pt;
+    font-variant-numeric: lining-nums;
+    color: var(--muted-color);
+  }
+}
+
+@media print {
+  html { font-size: var(--print-size); }
+  /* Typora fills its header/footer strip with the body's background, which would paint
+     over the running head; a transparent body keeps the strip clear (the paper is white) */
+  body { background: transparent; }
+  body.typora-export #write {
+    max-width: var(--print-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+  }
+  p { orphans: 3; widows: 3; }
+
+  /* keep headings with what follows, and figures and tables with their captions */
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  #write p:has(> .md-image:only-child, > img:only-child) { break-inside: avoid; }
+  #write p:has(> .md-image:only-child, > img:only-child):has(+ p > [md-inline="em"]:only-child, + p > em:only-child),
+  #write p:has(> [md-inline="em"]:only-child, > em:only-child):has(+ figure, + table) { break-after: avoid; }
+  pre, .md-fences, figure, table, .md-alert { break-inside: avoid; }
+}
