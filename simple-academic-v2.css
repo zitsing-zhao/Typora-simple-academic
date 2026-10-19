@@ -36,6 +36,7 @@
   --line-height: 1.7;                /* generous enough for mixed Chinese and Latin */
   --list-line-height: 1.6;
   --list-item-gap: 0.2em;
+  --list-gap: 0;                /* above and below lists when "indent first line" is on */
   --text-width: 680px;               /* the measure: about 70 Latin characters */
   --gutter: 80px;                    /* side margin; section numbers hang in it */
   --hang-gap: 0.75em;                /* between a hung number and its heading */
@@ -89,9 +90,13 @@ p { text-wrap: pretty; }
 /* With Typora's "indent first line" on, paragraphs are separated by the indent alone,
    as in a printed book; other blocks keep their own space above and below. */
 #write.first-line-indent > p { margin-top: 0; margin-bottom: 0; }
-#write.first-line-indent > :is(ul, ol, blockquote, pre, .md-fences, figure, table, .md-math-block) + p {
+#write.first-line-indent > :is(blockquote, pre, .md-fences, figure, table, .md-math-block) + p {
   margin-top: var(--block-gap);
 }
+/* lists continue the running text, so they sit nearly as close as the paragraphs do */
+#write.first-line-indent > :is(ul, ol) { margin-top: var(--list-gap); margin-bottom: var(--list-gap); }
+#write.first-line-indent > :is(ul, ol) > li:first-child { margin-top: 0; }
+#write.first-line-indent > :is(ul, ol) > li:last-child { margin-bottom: 0; }
 
 a { color: var(--accent-color); text-decoration: none; }
 a:hover {
