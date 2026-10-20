@@ -33,7 +33,7 @@
   --monospace: "Cascadia Code", "JetBrains Mono", Consolas, "Noto Sans SC", "Microsoft YaHei", monospace;  /* code only; taste-skill-ignore */
   --base-size: 17px;                 /* 1rem; every size below scales from it */
   --small-size: 0.88rem;             /* captions, tables, footnotes: 15px */
-  --line-height: 1.32;               /* Google Docs' "1.15" (1.15 x a typical font's 1.15 natural height) */
+  --line-height: 1.5;                /* between Google Docs' "1.15" (CSS 1.32) and "1.5" (CSS 1.72) */
   --list-line-height: var(--line-height);
   --paragraph-gap: 0.83em;           /* Google Docs' "space after paragraph": 10pt after 12pt text */
   --list-item-gap: 0;                /* lists stay tight: no space between or inside items */
@@ -254,7 +254,7 @@ li::marker { color: var(--muted-color); font-variant-numeric: lining-nums; }
 #write .task-list-item input, #write .md-task-list-item > input {
   position: absolute;
   left: -1.45em;
-  top: 0.24em;
+  top: 0.33em;
   margin: 0;
   accent-color: var(--accent-color);
 }

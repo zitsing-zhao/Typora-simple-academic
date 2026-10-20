@@ -22,7 +22,7 @@ A clean, paper-like theme for [Typora](https://typora.io) built for academic wri
 - **Section numbers hung in the left margin**, so every heading starts on the same left edge as the text. In narrow windows and in print/PDF export they sit inline.
 - **One rubric red, used only for references**: section numbers, caption labels, links and footnote marks. Running text stays black.
 - **No drawn lines except the table rules.** Code blocks and alerts sit on a light grey background. Block quotes are inset from both margins. `---` becomes three spaced asterisks.
-- **Google Docs spacing**: lines at Docs' "1.15" (`--line-height: 1.32`) and a 10pt space after each paragraph (`--paragraph-gap`), with no extra space inside lists. Paragraphs are never indented, even with Typora's **Indent first line** preference on.
+- **Google Docs spacing**: lines between Docs' "1.15" and "1.5" (`--line-height: 1.5`) and a 10pt space after each paragraph (`--paragraph-gap`), with no extra space inside lists. Paragraphs are never indented, even with Typora's **Indent first line** preference on.
 
 ![Simple Academic v2 preview](screenshots/preview-v2.png)
 
