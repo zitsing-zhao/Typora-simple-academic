@@ -22,7 +22,7 @@ A clean, paper-like theme for [Typora](https://typora.io) built for academic wri
 - **Section numbers hung in the left margin**, so every heading starts on the same left edge as the text. In narrow windows and in print/PDF export they sit inline.
 - **One rubric red, used only for references**: section numbers, caption labels, links and footnote marks. Running text stays black.
 - **No drawn lines except the table rules.** Code blocks and alerts sit on a light grey background. Block quotes are inset from both margins. `---` becomes three spaced asterisks.
-- With **Indent first line** on, paragraphs are separated by the indent alone, with no extra space between them.
+- **Google Docs spacing**: lines at Docs' "1.15" (`--line-height: 1.32`) and a 10pt space after each paragraph (`--paragraph-gap`), with no extra space inside lists. Paragraphs are never indented, even with Typora's **Indent first line** preference on.
 
 ![Simple Academic v2 preview](screenshots/preview-v2.png)
 
@@ -109,8 +109,8 @@ After editing, switch to another theme and back (or restart Typora) to reload.
 
 | Path | Purpose |
 | --- | --- |
-| `simple-academic.css` | The theme |
+| `simple-academic.css`, `simple-academic-v2.css` | The two themes |
 | `sample.md`, `lorem-ipsum.md` | Test documents covering every element |
-| `preview.html` | Browser preview that copies Typora's DOM; loads Typora's `base.css` from the local install (`D:\Typora\...`, adjust for your system) |
-| `tools/shot.ps1` | Takes a screenshot of `preview.html` with headless Edge (Windows) |
-| `tools/deploy.ps1` | Copies the theme into Typora's theme folder |
+| `preview.html`, `preview-v2.html` | Browser previews that copy Typora's DOM; they load Typora's `base.css` from the local install (`D:\Typora\...`, adjust for your system) |
+| `tools/shot.ps1` | Takes a screenshot of `preview.html` (or `-Page preview-v2.html`) with headless Edge (Windows) |
+| `tools/deploy.ps1` | Copies the theme into Typora's theme folder (`-Theme simple-academic-v2` for v2) |

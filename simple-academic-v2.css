@@ -33,10 +33,10 @@
   --monospace: "Cascadia Code", "JetBrains Mono", Consolas, "Noto Sans SC", "Microsoft YaHei", monospace;  /* code only; taste-skill-ignore */
   --base-size: 17px;                 /* 1rem; every size below scales from it */
   --small-size: 0.88rem;             /* captions, tables, footnotes: 15px */
-  --line-height: 1.7;                /* generous enough for mixed Chinese and Latin */
-  --list-line-height: 1.6;
-  --list-item-gap: 0.2em;
-  --list-gap: 0;                /* above and below lists when "indent first line" is on */
+  --line-height: 1.32;               /* Google Docs' "1.15" (1.15 x a typical font's 1.15 natural height) */
+  --list-line-height: var(--line-height);
+  --paragraph-gap: 0.83em;           /* Google Docs' "space after paragraph": 10pt after 12pt text */
+  --list-item-gap: 0;                /* lists stay tight: no space between or inside items */
   --text-width: 680px;               /* the measure: about 70 Latin characters */
   --gutter: 80px;                    /* side margin; section numbers hang in it */
   --hang-gap: 0.75em;                /* between a hung number and its heading */
@@ -82,21 +82,19 @@ body {
 
 #write > *:first-child { margin-top: 0; }
 
-p, ul, ol, blockquote, table, pre, .md-fences, figure {
+blockquote, table, pre, .md-fences, figure {
   margin: var(--block-gap) 0;
 }
+/* as in Google Docs: no space before a paragraph, a fixed space after it;
+   a list takes the same space after it as a whole, and none inside */
+#write p, #write ul, #write ol { margin: 0 0 var(--paragraph-gap); }
 p { text-wrap: pretty; }
 
-/* With Typora's "indent first line" on, paragraphs are separated by the indent alone,
-   as in a printed book; other blocks keep their own space above and below. */
-#write.first-line-indent > p { margin-top: 0; margin-bottom: 0; }
-#write.first-line-indent > :is(blockquote, pre, .md-fences, figure, table, .md-math-block) + p {
-  margin-top: var(--block-gap);
-}
-/* lists continue the running text, so they sit nearly as close as the paragraphs do */
-#write.first-line-indent > :is(ul, ol) { margin-top: var(--list-gap); margin-bottom: var(--list-gap); }
-#write.first-line-indent > :is(ul, ol) > li:first-child { margin-top: 0; }
-#write.first-line-indent > :is(ul, ol) > li:last-child { margin-bottom: 0; }
+/* paragraphs are separated by space, not indented: undo Typora's "indent first line"
+   preference (base.css indents p, shifts li and pulls image-only paragraphs back) */
+#write.first-line-indent p { text-indent: 0; }
+#write.first-line-indent li { margin-left: 0; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: 0; }
 
 a { color: var(--accent-color); text-decoration: none; }
 a:hover {
@@ -247,21 +245,16 @@ hr::before {
 /* ---------- lists ---------- */
 
 ul, ol { padding-left: 1.7em; line-height: var(--list-line-height); }
-li { margin: var(--list-item-gap) 0; }
-li > p { margin: 0; }
-li > ul, li > ol { margin: var(--list-item-gap) 0; }
+#write li { margin: var(--list-item-gap) 0; }
+#write li > p, #write li > ul, #write li > ol { margin: var(--list-item-gap) 0; }
 li::marker { color: var(--muted-color); font-variant-numeric: lining-nums; }
 
-/* with "indent first line" on, Typora shifts each li by 2em; drop the list padding
-   so item text lines up with a paragraph's first-line indent */
-#write.first-line-indent :is(ul, ol) { padding-left: 0; }
-#write.first-line-indent li > p { margin: 0; }
 
 .task-list-item, .md-task-list-item { list-style: none; position: relative; }
 #write .task-list-item input, #write .md-task-list-item > input {
   position: absolute;
   left: -1.45em;
-  top: 0.38em;
+  top: 0.24em;
   margin: 0;
   accent-color: var(--accent-color);
 }
@@ -276,8 +269,7 @@ blockquote {
   border: none;
   color: var(--text-color);
 }
-blockquote > p { margin: 0.5em 0; }
-#write.first-line-indent blockquote > p { text-indent: 0; }
+#write blockquote > p { margin: 0 0 var(--paragraph-gap); }
 
 /* alerts are notes beside the argument: a tone-step field, the kind named in its colour */
 #write .md-alert {
@@ -335,7 +327,7 @@ table {
   border-collapse: collapse;
   width: auto;                       /* fit content, centered */
   font-size: var(--small-size);
-  line-height: 1.5;
+  line-height: var(--line-height);
   font-variant-numeric: lining-nums tabular-nums;
   border-top: var(--table-rule-thick) solid var(--table-rule-color);
   border-bottom: var(--table-rule-thick) solid var(--table-rule-color);
@@ -391,7 +383,7 @@ img { max-width: 100%; border-radius: 0; }
   text-align: left;
   text-indent: 0;                    /* ignore Typora's "indent first line" preference */
   font-size: var(--small-size);
-  line-height: 1.5;
+  line-height: var(--line-height);
   color: var(--text-color);
 }
 
@@ -463,7 +455,7 @@ img { max-width: 100%; border-radius: 0; }
 #write hr + .footnotes-area > hr:first-child { display: none; }
 #write .footnote-line {
   font-size: var(--small-size);
-  line-height: 1.5;
+  line-height: var(--line-height);
   margin-top: 0.4em;
 }
 #write .footnote-line sup,
