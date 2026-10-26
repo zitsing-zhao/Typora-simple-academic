@@ -41,11 +41,13 @@
   --gutter: 80px;                    /* side margin; section numbers hang in it */
   --hang-gap: 0.75em;                /* between a hung number and its heading */
   --block-gap: 1em;                  /* above and below lists, code, tables, quotes */
-  --print-size: 11pt;                /* body size in PDF export and print */
-  --print-width: 150mm;              /* text block in PDF: about 75 characters at 11pt */
-  --paper-width: 210mm;              /* A4; 215.9mm for Letter. Lines the running head up with the text */
-  --pdf-header: "";                  /* running head, top left of every PDF page, e.g. "Ziqing Zhao" */
-  --pdf-footer: counter(page) "\2002/\2002" counter(pages);   /* bottom left; "" hides it */
+  --print-size: 10.5pt;              /* body size in PDF export and print; editor stays at --base-size */
+  --print-width: 150mm;              /* text block width in PDF export and print */
+  --pdf-margin-top: 25mm;            /* space above the text on every PDF page */
+  --pdf-margin-bottom: 25mm;         /* space below the text on every PDF page */
+  --pdf-right-inset: 20mm;           /* header/footer distance from the right page edge */
+  --pdf-header: "";                  /* running head, top right of every PDF page, e.g. "Ziqing Zhao" */
+  --pdf-footer: counter(page) "\2002/\2002" counter(pages);   /* bottom right; "" hides it */
 
   /* Typora UI variables (sidebar, menus, etc.) */
   --side-bar-bg-color: #f5f5f2;
@@ -472,21 +474,26 @@ img { max-width: 100%; border-radius: 0; }
 /* The theme sets the measure itself: a text block of --print-width centred on the page,
    whatever Typora's margin settings are (its default adds only 30px at the sides).
    The space left on either side holds the hung section numbers. */
-/* Running head and page number, set flush left on the text block's edge. Typora centres its
-   own header/footer and allows no other alignment, so leave those fields empty in
+/* Running head and page number, right-aligned 10mm beyond the A4 text block's right edge.
+   Typora centres its own header/footer and allows no other alignment, so leave those fields empty in
    Preferences > Export > PDF and set --pdf-header / --pdf-footer instead (best in
    simple-academic-v2.user.css next to the theme, which Typora loads after it). */
 @page {
-  @top-left {
+  margin-top: var(--pdf-margin-top);
+  margin-bottom: var(--pdf-margin-bottom);
+
+  @top-right {
     content: var(--pdf-header);
-    padding-left: calc((var(--paper-width) - var(--print-width)) / 2);
+    padding-right: var(--pdf-right-inset);
+    text-align: right;
     font-family: var(--text-font);
     font-size: 9pt;
     color: var(--muted-color);
   }
-  @bottom-left {
+  @bottom-right {
     content: var(--pdf-footer);
-    padding-left: calc((var(--paper-width) - var(--print-width)) / 2);
+    padding-right: var(--pdf-right-inset);
+    text-align: right;
     font-family: var(--text-font);
     font-size: 9pt;
     font-variant-numeric: lining-nums;
